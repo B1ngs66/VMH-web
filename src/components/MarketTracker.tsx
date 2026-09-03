@@ -139,7 +139,6 @@ export function MarketTracker({ locale }: { locale: Locale }) {
 
         const response = await fetch(url, {
           cache: "no-store",
-          headers: { "Cache-Control": "no-cache" },
           signal: controller.signal,
         });
         if (!response.ok) throw new Error(`Quote request failed: ${response.status}`);
