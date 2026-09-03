@@ -1,0 +1,32 @@
+{
+  "name": "vmh-corporate-site",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.15.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "pnpm validate:content && next build",
+    "start": "pnpm dlx serve@14 out",
+    "sync:filings": "node scripts/download-filing-assets.mjs",
+    "sync:markets": "node scripts/sync-market-data.mjs",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "validate:content": "node scripts/validate-content.mjs"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "eslint": "^9.35.0",
+    "eslint-config-next": "16.3.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.2"
+  }
+}

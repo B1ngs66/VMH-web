@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.DS_Store
+.env*
+!.env.example
+*.pem
+*.key
+.taste-skill-install-temp/
+crawler-artifacts/
+reference-site/
