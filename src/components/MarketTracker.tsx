@@ -31,8 +31,8 @@ type LiveQuote = {
 
 type LiveQuotes = Partial<Record<MarketSymbol, LiveQuote>>;
 
-const LIVE_QUOTES_URL =
-  "https://qt.gtimg.cn/q=r_hk01520,r_hkHSI,usIXIC,sh000300,sh000001";
+const LIVE_QUOTES_URL = "https://qt.gtimg.cn/q=r_hk01520,r_hkHSI,usIXIC,sh000300,sh000001";
+const LIVE_REFRESH_INTERVAL = 30_000;
 
 const symbolsByQuoteCode: Record<string, MarketSymbol> = {
   "01520": "HKEX:1520",
@@ -81,8 +81,9 @@ function parseLiveQuotes(payload: string): LiveQuotes {
 }
 
 function quoteTime(value: string | undefined, fallback: string, timezone: string) {
-  if (value && /^\d{12,14}$/.test(value)) {
-    return `${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)} ${value.slice(8, 10)}:${value.slice(10, 12)} (${timezone})`;
+  const normalized = value?.replace(/\D/g, "") ?? "";
+  if (/^\d{12,14}$/.test(normalized)) {
+    return `${normalized.slice(0, 4)}-${normalized.slice(4, 6)}-${normalized.slice(6, 8)} ${normalized.slice(8, 10)}:${normalized.slice(10, 12)} (${timezone})`;
   }
 
   const date = new Date(fallback);
@@ -133,8 +134,12 @@ export function MarketTracker({ locale }: { locale: Locale }) {
       controller = new AbortController();
 
       try {
-        const response = await fetch(LIVE_QUOTES_URL, {
+        const url = new URL(LIVE_QUOTES_URL);
+        url.searchParams.set("_", Date.now().toString());
+
+        const response = await fetch(url, {
           cache: "no-store",
+          headers: { "Cache-Control": "no-cache" },
           signal: controller.signal,
         });
         if (!response.ok) throw new Error(`Quote request failed: ${response.status}`);
@@ -151,7 +156,7 @@ export function MarketTracker({ locale }: { locale: Locale }) {
     };
 
     void updateQuotes();
-    const refreshTimer = window.setInterval(updateQuotes, 60_000);
+    const refreshTimer = window.setInterval(updateQuotes, LIVE_REFRESH_INTERVAL);
 
     return () => {
       controller.abort();
@@ -163,7 +168,7 @@ export function MarketTracker({ locale }: { locale: Locale }) {
     ? {
         title: "市場行情",
         subtitle: "即時掌握主要市場脈動",
-        live: "頁面開啟時更新，每 60 秒刷新",
+        live: "已連接即時行情，每 30 秒刷新",
         connecting: "正在連接最新行情",
         fallback: "暫時顯示最近快照",
         delay: "數據延遲至少 15 分鐘",
@@ -172,7 +177,7 @@ export function MarketTracker({ locale }: { locale: Locale }) {
     : {
         title: "Market watch",
         subtitle: "Stay connected to major global markets",
-        live: "Updates on entry and refreshes every 60 seconds",
+        live: "Live quotes connected; refreshes every 30 seconds",
         connecting: "Connecting to the latest quotes",
         fallback: "Showing the latest saved snapshot",
         delay: "Data delayed by at least 15 minutes",
