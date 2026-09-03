@@ -95,9 +95,9 @@ export function Header({ locale }: { locale: Locale }) {
           ))}
         </nav>
 
-        <a className="language-link" href={languageHref} hrefLang={locale === "zh" ? "en" : "zh-Hant-HK"}>
+        <Link className="language-link" href={languageHref} hrefLang={locale === "zh" ? "en" : "zh-Hant-HK"}>
           {copy.language}
-        </a>
+        </Link>
 
         <button
           ref={menuButtonRef}
@@ -122,7 +122,7 @@ export function Header({ locale }: { locale: Locale }) {
         {copy.nav.map(([label, href]) => (
           <Link key={href} href={href} aria-current={isCurrentPage(href) ? "page" : undefined} onClick={(event) => handleNavClick(event, href)}>{label}</Link>
         ))}
-        <a href={languageHref} hrefLang={locale === "zh" ? "en" : "zh-Hant-HK"}>{copy.language}</a>
+        <Link href={languageHref} hrefLang={locale === "zh" ? "en" : "zh-Hant-HK"}>{copy.language}</Link>
       </nav>
     </header>
   );
