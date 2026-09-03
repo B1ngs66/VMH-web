@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { newsSlugs } from "@/content/news";
 import { projectSlugs } from "@/content/projects";
+import { siteUrl } from "@/lib/site-path";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://vmh.com.hk";
+  const base = siteUrl;
   const staticPaths = ["", "/en", "/news", "/en/news", "/investors", "/en/investors", "/privacy", "/en/privacy", "/terms", "/en/terms"];
   const newsPaths = newsSlugs.flatMap((slug) => [`/news/${slug}`, `/en/news/${slug}`]);
   const projectPaths = projectSlugs.flatMap((slug) => [`/projects/${slug}`, `/en/projects/${slug}`]);

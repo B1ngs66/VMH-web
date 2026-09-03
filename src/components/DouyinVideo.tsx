@@ -1,3 +1,5 @@
+import { publicPath } from "@/lib/site-path";
+
 export function DouyinVideo({ locale }: { locale: "zh" | "en" }) {
   return (
     <div className="project-video">
@@ -13,7 +15,7 @@ export function DouyinVideo({ locale }: { locale: "zh" | "en" }) {
             : "Greater Bay Area Hunan Football Team video"
         }
       >
-        <source src="/video/hunan-football-team.mp4" type="video/mp4" />
+        <source src={publicPath("/video/hunan-football-team.mp4")} type="video/mp4" />
         {locale === "zh"
           ? "您的瀏覽器不支援影片播放。"
           : "Your browser does not support video playback."}

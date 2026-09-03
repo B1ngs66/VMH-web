@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/content/site";
 import type { NewsItem } from "@/content/news";
+import { publicPath } from "@/lib/site-path";
 
 export function NewsList({ items, locale, compact = false }: { items: NewsItem[]; locale: Locale; compact?: boolean }) {
   const base = locale === "zh" ? "/news" : "/en/news";
@@ -20,7 +21,7 @@ export function NewsList({ items, locale, compact = false }: { items: NewsItem[]
               <div className="news-card-media">
                 {item.imageUrl ? (
                   <Image
-                    src={item.imageUrl}
+                    src={publicPath(item.imageUrl)}
                     alt={item.imageAlt ?? ""}
                     fill
                     sizes="(max-width: 680px) calc(100vw - 32px), (max-width: 980px) calc(100vw - 40px), 50vw"

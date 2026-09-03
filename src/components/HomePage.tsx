@@ -8,6 +8,7 @@ import { getAnnouncements, publicFileUrl } from "@/content/announcements";
 import { getNews } from "@/content/news";
 import type { Locale } from "@/content/site";
 import { company, siteCopy } from "@/content/site";
+import { publicPath } from "@/lib/site-path";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { MarketTracker } from "./MarketTracker";
@@ -48,7 +49,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             </Link>
           </div>
           <figure className="hero-media">
-            <Image src="/picture/vmh-headquarters.jpg" width={1800} height={2700} alt={locale === "zh" ? "香港環球大廈外牆的天機控股品牌標誌" : "VM Holding signage on the exterior of World-Wide House in Hong Kong"} priority sizes="(max-width: 980px) 100vw, 48vw" />
+            <Image src={publicPath("/picture/vmh-headquarters.jpg")} width={1800} height={2700} alt={locale === "zh" ? "香港環球大廈外牆的天機控股品牌標誌" : "VM Holding signage on the exterior of World-Wide House in Hong Kong"} priority sizes="(max-width: 980px) 100vw, 48vw" />
             <figcaption>
               <span>{copy.name}</span>
               <span>HK.{company.stockCode}</span>

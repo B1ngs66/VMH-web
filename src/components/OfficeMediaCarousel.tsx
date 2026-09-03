@@ -4,6 +4,7 @@ import { CaretLeft, CaretRight, Pause, Play } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Locale } from "@/content/site";
+import { publicPath } from "@/lib/site-path";
 
 const slides = [
   {
@@ -102,7 +103,7 @@ export function OfficeMediaCarousel({ locale }: { locale: Locale }) {
             {"fit" in slide && slide.fit === "contain" ? (
               <Image
                 className="office-carousel-backdrop"
-                src={slide.src}
+                src={publicPath(slide.src)}
                 alt=""
                 aria-hidden="true"
                 fill
@@ -111,7 +112,7 @@ export function OfficeMediaCarousel({ locale }: { locale: Locale }) {
             ) : null}
             <Image
               className={`office-carousel-image${"fit" in slide && slide.fit === "contain" ? " office-carousel-image--contain" : ""}`}
-              src={slide.src}
+              src={publicPath(slide.src)}
               alt={index === activeSlide ? slide.alt[locale] : ""}
               fill
               sizes="(max-width: 980px) 100vw, 50vw"

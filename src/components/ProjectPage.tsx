@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/content/projects";
 import type { Locale } from "@/content/site";
+import { publicPath } from "@/lib/site-path";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { DouyinVideo } from "./DouyinVideo";
@@ -88,7 +89,7 @@ function DolphinodeEcosystem({ locale }: { locale: Locale }) {
           const cardContent = (
             <>
             <div className="dolphinode-app-heading">
-              <Image src={app.logo} width={56} height={56} alt="" aria-hidden="true" />
+              <Image src={publicPath(app.logo)} width={56} height={56} alt="" aria-hidden="true" />
               <h2>{app.name}</h2>
               {"url" in app ? <ArrowUpRight size={17} aria-hidden="true" /> : null}
             </div>
@@ -137,7 +138,7 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
               {isDolphinodeProject ? (
                 <Image
                   className="dolphinode-title-logo"
-                  src="/picture/dolphinode/dolphinode.png"
+                  src={publicPath("/picture/dolphinode/dolphinode.png")}
                   width={96}
                   height={79}
                   alt=""
@@ -152,7 +153,7 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
             {isFootballProject ? (
               <Image
                 className="football-team-logo"
-                src="/picture/greater-bay-area-hunan-football-team-logo.jpg"
+                src={publicPath("/picture/greater-bay-area-hunan-football-team-logo.jpg")}
                 width={448}
                 height={232}
                 alt={locale === "zh" ? "大灣區湖南人足球隊隊徽" : "Greater Bay Area Hunanese Football Team logo"}
@@ -164,12 +165,12 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
               <DouyinVideo locale={locale} />
               <div className="project-social-links">
                 <a href="https://v.douyin.com/AekM-ncfkuw/" target="_blank" rel="noreferrer">
-                  <span className="project-social-logo project-social-logo--douyin" aria-hidden="true" />
+                  <span className="project-social-logo project-social-logo--douyin" style={{ backgroundImage: `url(${publicPath("/brands/douyin.svg")})` }} aria-hidden="true" />
                   <span>{locale === "zh" ? "大灣區湖南人隊抖音官號" : "Official Douyin account"}</span>
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </a>
                 <a href="https://xhslink.cn/o/6ODdZP8LL1J" target="_blank" rel="noreferrer">
-                  <span className="project-social-logo project-social-logo--xiaohongshu" aria-hidden="true" />
+                  <span className="project-social-logo project-social-logo--xiaohongshu" style={{ backgroundImage: `url(${publicPath("/brands/xiaohongshu.svg")})` }} aria-hidden="true" />
                   <span>{locale === "zh" ? "大灣區湖南人足球隊小紅書" : "Xiaohongshu account"}</span>
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </a>
@@ -184,7 +185,7 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
           ) : isMokenlogicProject ? (
             <div className="project-mark project-mark--mokenlogic">
               <Image
-                src="/picture/mokenlogic-harness-interface.png"
+                src={publicPath("/picture/mokenlogic-harness-interface.png")}
                 alt={locale === "zh" ? "MokenLogic Harness 產品介面" : "MokenLogic Harness product interface"}
                 fill
                 sizes="(max-width: 980px) 100vw, 36vw"
@@ -227,7 +228,7 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
                       preload="metadata"
                       aria-label={locale === "zh" ? `Dolphinode 相關影片 ${index + 1}` : `Dolphinode related video ${index + 1}`}
                     >
-                      <source src={video.src} type={video.type} />
+                      <source src={publicPath(video.src)} type={video.type} />
                       {locale === "zh" ? "您的瀏覽器不支援影片播放。" : "Your browser does not support video playback."}
                     </video>
                     <p>{locale === "zh" ? `相關影片 ${String(index + 1).padStart(2, "0")}` : `Related video ${String(index + 1).padStart(2, "0")}`}</p>
@@ -242,7 +243,7 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
                 <div className="project-app-download-grid">
                   {dolphinodeDownloads.map((app) => (
                     <article className="project-app-download-card" key={app.name}>
-                      <Image src={app.logo} width={104} height={104} alt={`${app.name} logo`} />
+                      <Image src={publicPath(app.logo)} width={104} height={104} alt={`${app.name} logo`} />
                       <h4>{app.name}</h4>
                       <div className="project-app-store-links">
                         {app.stores.map((store) => (
@@ -273,7 +274,7 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
             <h2 id="project-sources-title">{locale === "zh" ? "公開資料來源" : "Public sources"}</h2>
             <div>
               {project.sources.map((source) => (
-                <a key={source.url} href={source.url} target="_blank" rel="noreferrer">
+                <a key={source.url} href={publicPath(source.url)} target="_blank" rel="noreferrer">
                   <span>{source.label}</span>
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </a>

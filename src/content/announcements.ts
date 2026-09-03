@@ -1,6 +1,7 @@
 import zhData from "@/data/announcements.zh.json";
 import enData from "@/data/announcements.en.json";
 import type { Locale } from "./site";
+import { publicPath } from "@/lib/site-path";
 
 export type Announcement = {
   date: string;
@@ -28,5 +29,5 @@ export function getAnnouncements(locale: Locale): Announcement[] {
 }
 
 export function publicFileUrl(item: Announcement): string {
-  return `/${item.fileUrl.replace(/^\//, "")}`;
+  return publicPath(`/${item.fileUrl.replace(/^\//, "")}`);
 }

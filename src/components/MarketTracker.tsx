@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import marketData from "@/content/market-data.json";
 import type { Locale } from "@/content/site";
+import { publicPath } from "@/lib/site-path";
 
 type BundledMarkets = typeof marketData.markets;
 type MarketSymbol = keyof BundledMarkets;
@@ -179,9 +180,13 @@ export function MarketTracker({ locale }: { locale: Locale }) {
       };
 
   return (
-    <section className="market-tracker" aria-labelledby="market-tracker-title">
+    <section
+      className="market-tracker"
+      aria-labelledby="market-tracker-title"
+      style={{ "--market-background": `url(${publicPath("/picture/frameA_pic.jpg")})` } as React.CSSProperties}
+    >
       <div className="market-tracker-topbar">
-        <Image className="market-tracker-logo" src="/picture/logo.svg" width={1050} height={287} alt={locale === "zh" ? "天機控股" : "VM Holding"} />
+        <Image className="market-tracker-logo" src={publicPath("/picture/logo.svg")} width={1050} height={287} alt={locale === "zh" ? "天機控股" : "VM Holding"} />
         <p data-status={liveStatus} aria-live="polite">
           {liveStatus === "live" ? copy.live : liveStatus === "loading" ? copy.connecting : copy.fallback}
         </p>

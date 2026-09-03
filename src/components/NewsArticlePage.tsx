@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/content/site";
 import type { NewsItem } from "@/content/news";
+import { publicPath } from "@/lib/site-path";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
@@ -20,14 +21,14 @@ export function NewsArticlePage({ locale, item }: { locale: Locale; item: NewsIt
           <div className="article-meta"><time dateTime={item.date}>{item.date}</time><span>HK.{"01520"}</span></div>
           {item.imageUrl && item.imageAlt && item.imageWidth && item.imageHeight && (
             <figure className="article-media">
-              <Image src={item.imageUrl} alt={item.imageAlt} width={item.imageWidth} height={item.imageHeight} sizes="(max-width: 860px) calc(100vw - 40px), 820px" />
+              <Image src={publicPath(item.imageUrl)} alt={item.imageAlt} width={item.imageWidth} height={item.imageHeight} sizes="(max-width: 860px) calc(100vw - 40px), 820px" />
             </figure>
           )}
           <p className="article-lead">{item.summary}</p>
           {item.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           {item.bodyImageUrl && item.bodyImageAlt && item.bodyImageWidth && item.bodyImageHeight && (
             <figure className="article-media article-media-body">
-              <Image src={item.bodyImageUrl} alt={item.bodyImageAlt} width={item.bodyImageWidth} height={item.bodyImageHeight} sizes="(max-width: 860px) calc(100vw - 40px), 820px" />
+              <Image src={publicPath(item.bodyImageUrl)} alt={item.bodyImageAlt} width={item.bodyImageWidth} height={item.bodyImageHeight} sizes="(max-width: 860px) calc(100vw - 40px), 820px" />
             </figure>
           )}
           <div className="article-actions">

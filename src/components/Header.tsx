@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/content/site";
 import { company, siteCopy } from "@/content/site";
+import { publicPath } from "@/lib/site-path";
 
 export function Header({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
@@ -80,7 +81,7 @@ export function Header({ locale }: { locale: Locale }) {
     >
       <div className="header-shell">
         <Link className="brand-link" href={locale === "zh" ? "/" : "/en"} aria-label={copy.name}>
-          <Image className="brand-logo" src="/picture/logo.webp" width={510} height={139} alt={copy.name} priority />
+          <Image className="brand-logo" src={publicPath("/picture/logo.webp")} width={510} height={139} alt={copy.name} priority />
         </Link>
 
         <div className="stock-mark" aria-label={`${locale === "zh" ? "港股編號" : "Hong Kong stock code"} ${company.stockCode}`}>

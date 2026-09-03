@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { Locale } from "./site";
+import { publicPath, siteUrl } from "@/lib/site-path";
 
 const identity = {
   zh: {
@@ -20,7 +21,7 @@ const identity = {
   },
 } as const;
 
-const socialImage = { url: "/picture/frameA_pic.jpg", width: 1054, height: 730 };
+const socialImage = { url: publicPath("/picture/frameA_pic.jpg"), width: 1054, height: 730 };
 
 export const siteViewport: Viewport = {
   width: "device-width",
@@ -35,7 +36,7 @@ export const siteViewport: Viewport = {
 export function createRootMetadata(locale: Locale): Metadata {
   const copy = identity[locale];
   return {
-    metadataBase: new URL("https://vmh.com.hk"),
+    metadataBase: new URL(new URL(siteUrl).origin),
     title: {
       default: copy.rootTitle,
       template: locale === "zh" ? "%s | 天機控股" : "%s | VM Holding",
@@ -57,8 +58,8 @@ export function createRootMetadata(locale: Locale): Metadata {
       images: [socialImage.url],
     },
     icons: {
-      icon: [{ url: "/picture/favicon.png", type: "image/png", sizes: "128x128" }],
-      apple: "/picture/favicon.png",
+      icon: [{ url: publicPath("/picture/favicon.png"), type: "image/png", sizes: "128x128" }],
+      apple: publicPath("/picture/favicon.png"),
     },
   };
 }
@@ -76,13 +77,14 @@ type PageMetadataOptions = {
 export function createPageMetadata(options: PageMetadataOptions): Metadata {
   const copy = identity[options.locale];
   const fullTitle = options.title ? `${options.title} | ${copy.shortName}` : copy.rootTitle;
+  const canonical = publicPath(options.canonical);
   const commonOpenGraph = {
     locale: copy.locale,
     alternateLocale: [copy.alternateLocale],
     siteName: copy.siteName,
     title: fullTitle,
     description: options.description,
-    url: options.canonical,
+    url: canonical,
     images: [socialImage],
   };
 
@@ -90,8 +92,8 @@ export function createPageMetadata(options: PageMetadataOptions): Metadata {
     title: { absolute: fullTitle },
     description: options.description,
     alternates: {
-      canonical: options.canonical,
-      languages: { "zh-Hant-HK": options.zhPath, en: options.enPath },
+      canonical,
+      languages: { "zh-Hant-HK": publicPath(options.zhPath), en: publicPath(options.enPath) },
     },
     openGraph: options.publishedTime
       ? { type: "article", publishedTime: options.publishedTime, ...commonOpenGraph }

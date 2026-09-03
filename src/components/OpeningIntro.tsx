@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Locale } from "@/content/site";
+import { publicPath } from "@/lib/site-path";
 
 type IntroPhase = "opening" | "positioning" | "connection" | "closing";
 
@@ -54,7 +55,7 @@ export function OpeningIntro({ locale }: { locale: Locale }) {
           setPhase((current) => current === nextPhase ? current : nextPhase);
         }}
       >
-        <source src="/video/vmh-opening.mp4" type="video/mp4" />
+        <source src={publicPath("/video/vmh-opening.mp4")} type="video/mp4" />
         {copy.fallback}
       </video>
 

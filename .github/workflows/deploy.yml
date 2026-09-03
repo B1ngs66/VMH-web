@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_BASE_PATH: /VMH-web
+      NEXT_PUBLIC_SITE_URL: https://b1ngs66.github.io/VMH-web
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

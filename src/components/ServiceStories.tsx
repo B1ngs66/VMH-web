@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import type { Locale } from "@/content/site";
+import { publicPath } from "@/lib/site-path";
 
 type ServiceStory = {
   slug: string;
@@ -138,7 +139,7 @@ export function ServiceStories({
                 <>
                   <Image
                     className="service-story-image"
-                    src={media.src}
+                    src={publicPath(media.src)}
                     alt={media.alt[locale]}
                     fill
                     sizes="100vw"
@@ -152,7 +153,7 @@ export function ServiceStories({
                   <div className="service-story-logo-frame">
                     <Image
                       className="service-story-logo-image"
-                      src={media.src}
+                      src={publicPath(media.src)}
                       alt={media.alt[locale]}
                       fill
                       sizes="(max-width: 680px) 82vw, 560px"
@@ -162,7 +163,7 @@ export function ServiceStories({
                     <div className="service-story-product-logos" aria-label={locale === "zh" ? "Dolphinode 產品品牌" : "Dolphinode product brands"}>
                       {dolphinodeProductLogos.map((logo) => (
                         <span className="service-story-product-logo" key={logo.name}>
-                          <Image src={logo.src} alt={logo.name} width={512} height={512} sizes="(max-width: 680px) 64px, 96px" />
+                          <Image src={publicPath(logo.src)} alt={logo.name} width={512} height={512} sizes="(max-width: 680px) 64px, 96px" />
                         </span>
                       ))}
                     </div>
