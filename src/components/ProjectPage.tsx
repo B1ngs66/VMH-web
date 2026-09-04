@@ -32,11 +32,6 @@ const dolphinodeApps = [
     logo: "/picture/dolphinode/whimpartner.jpg",
     description: { zh: "商戶運營與權益核銷", en: "Merchant operations and benefit redemption" },
   },
-  {
-    name: "WhimPay",
-    logo: "/picture/dolphinode/whimpay.jpg",
-    description: { zh: "支付接入", en: "Payment access" },
-  },
 ] as const;
 
 const dolphinodeVideos = [

@@ -106,7 +106,7 @@ const projectsByLocale: Record<Locale, Project[]> = {
         {
           title: "產品與技術實踐",
           paragraphs: [
-            "Dolphinode 公開展示 Dolphinet、NodeVault、WhimLand、WhimPartner 及 WhimPay 等互聯產品，覆蓋 EVM 兼容網絡、錢包、消費應用、商戶流程和支付接入。",
+            "Dolphinode 公開展示 Dolphinet、NodeVault、WhimLand 及 WhimPartner 等互聯產品，覆蓋 EVM 兼容網絡、錢包、消費應用及商戶流程。",
             "這套產品組合用於驗證基礎設施、資產、用戶體驗與商業營運如何在同一架構中協同；涉及受監管服務時，由具備相應授權的機構提供。",
           ],
         },
@@ -208,7 +208,7 @@ const projectsByLocale: Record<Locale, Project[]> = {
         {
           title: "Product and technology practice",
           paragraphs: [
-            "Dolphinode presents an interconnected portfolio including Dolphinet, NodeVault, WhimLand, WhimPartner and WhimPay across EVM-compatible networks, wallet infrastructure, consumer applications, merchant workflows and payment access.",
+            "Dolphinode presents an interconnected portfolio including Dolphinet, NodeVault, WhimLand and WhimPartner across EVM-compatible networks, wallet infrastructure, consumer applications and merchant workflows.",
             "The portfolio demonstrates how infrastructure, assets, user experience and commercial operations can work within one architecture. Regulated services are provided by appropriately licensed institutions where required.",
           ],
         },
