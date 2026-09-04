@@ -1,4 +1,4 @@
-import { AppleLogo, ArrowLeft, ArrowUpRight, GooglePlayLogo } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/content/projects";
@@ -54,23 +54,23 @@ const dolphinodeDownloads = [
     name: "NodeVault",
     logo: "/picture/dolphinode/nodevault.jpg",
     stores: [
-      { platform: "apple", label: "App Store", url: "https://apps.apple.com/us/app/nodevault/id6756870326" },
+      { platform: "apple", label: "Download NodeVault on the App Store", badge: "/brands/store-badges/download-on-the-app-store.svg", width: 120, height: 40, url: "https://apps.apple.com/us/app/nodevault/id6756870326" },
     ],
   },
   {
     name: "WhimLand",
     logo: "/picture/dolphinode/whimland.jpg",
     stores: [
-      { platform: "apple", label: "App Store", url: "https://apps.apple.com/us/app/whimland/id6759475000" },
-      { platform: "google", label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.whimland.app&pcampaignid=web_share" },
+      { platform: "apple", label: "Download WhimLand on the App Store", badge: "/brands/store-badges/download-on-the-app-store.svg", width: 120, height: 40, url: "https://apps.apple.com/us/app/whimland/id6759475000" },
+      { platform: "google", label: "Get WhimLand on Google Play", badge: "/brands/store-badges/get-it-on-google-play.png", width: 155, height: 60, url: "https://play.google.com/store/apps/details?id=com.whimland.app&pcampaignid=web_share" },
     ],
   },
   {
     name: "WhimPartner",
     logo: "/picture/dolphinode/whimpartner.jpg",
     stores: [
-      { platform: "apple", label: "App Store", url: "https://apps.apple.com/us/app/whim-partner/id6759444532" },
-      { platform: "google", label: "Google Play", url: "https://play.google.com/store/apps/details?id=land.whim.partner&pcampaignid=web_share" },
+      { platform: "apple", label: "Download WhimPartner on the App Store", badge: "/brands/store-badges/download-on-the-app-store.svg", width: 120, height: 40, url: "https://apps.apple.com/us/app/whim-partner/id6759444532" },
+      { platform: "google", label: "Get WhimPartner on Google Play", badge: "/brands/store-badges/get-it-on-google-play.png", width: 155, height: 60, url: "https://play.google.com/store/apps/details?id=land.whim.partner&pcampaignid=web_share" },
     ],
   },
 ] as const;
@@ -241,13 +241,15 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
                             key={store.platform}
                             target="_blank"
                             rel="noreferrer"
-                            aria-label={`${app.name} — ${store.label}`}
+                            aria-label={store.label}
                           >
-                            {store.platform === "apple"
-                              ? <AppleLogo size={20} weight="fill" aria-hidden="true" />
-                              : <GooglePlayLogo size={20} weight="fill" aria-hidden="true" />}
-                            <span>{store.label}</span>
-                            <ArrowUpRight size={15} aria-hidden="true" />
+                            <Image
+                              src={publicPath(store.badge)}
+                              width={store.width}
+                              height={store.height}
+                              alt=""
+                              aria-hidden="true"
+                            />
                           </a>
                         ))}
                       </div>

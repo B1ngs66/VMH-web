@@ -2558,36 +2558,47 @@ a.dolphinode-app-card:focus-visible {
 }
 
 .project-app-store-links {
-  display: grid;
-  gap: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   margin-top: auto;
 }
 
 .project-app-store-link {
-  min-height: 46px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 10px 13px;
-  border: 1px solid #cfd8e2;
-  border-radius: 12px;
-  color: var(--ink);
-  font-size: 14px;
-  font-weight: 650;
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  justify-content: center;
+  border: 0;
+  border-radius: 9px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.project-app-store-link--apple {
-  border-color: #111820;
-  background: #111820;
-  color: #fff;
+.project-app-store-link img {
+  display: block;
+  width: auto;
+  object-fit: contain;
+}
+
+.project-app-store-link--apple img {
+  height: 40px;
+}
+
+.project-app-store-link--google img {
+  height: 60px;
+  margin: -10px -14px;
 }
 
 .project-app-store-link:hover {
   transform: translateY(-2px);
-  border-color: var(--vmh-blue);
   box-shadow: 0 10px 24px rgb(32 68 116 / 12%);
+}
+
+.project-app-store-link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--focus) 38%, transparent);
+  outline-offset: 3px;
 }
 
 .project-sources {
