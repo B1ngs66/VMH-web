@@ -2383,7 +2383,6 @@ a.dolphinode-app-card:focus-visible {
   transition: color 200ms ease, opacity 200ms ease, transform 260ms cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
-.project-section[data-active="true"]::before,
 .project-section:focus-within::before {
   border-color: var(--project-section-highlight-border);
   opacity: 1;
@@ -2391,19 +2390,16 @@ a.dolphinode-app-card:focus-visible {
   transform: scale(1);
 }
 
-.project-section[data-active="true"]::after,
 .project-section:focus-within::after {
   opacity: 1;
   transform: scaleY(1);
 }
 
-.project-section[data-active="true"] h2,
 .project-section:focus-within h2 {
   color: var(--vmh-blue-strong);
   transform: translateX(7px);
 }
 
-.project-section[data-active="true"] > div,
 .project-section:focus-within > div {
   transform: translateX(4px);
 }
@@ -3608,10 +3604,6 @@ a.dolphinode-app-card:focus-visible {
     will-change: auto;
   }
 
-  .project-section[data-active="true"]::before,
-  .project-section[data-active="true"]::after,
-  .project-section[data-active="true"] h2,
-  .project-section[data-active="true"] > div,
   .project-section:focus-within::before,
   .project-section:focus-within::after,
   .project-section:focus-within h2,
