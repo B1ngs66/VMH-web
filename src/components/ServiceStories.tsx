@@ -54,7 +54,6 @@ const dolphinodeProductLogos = [
   { src: "/picture/dolphinode/nodevault.jpg", name: "NodeVault" },
   { src: "/picture/dolphinode/whimland.jpg", name: "WhimLand" },
   { src: "/picture/dolphinode/whimpartner.jpg", name: "WhimPartner" },
-  { src: "/picture/dolphinode/whimpay.jpg", name: "WhimPay" },
 ] as const;
 
 export function ServiceStories({
