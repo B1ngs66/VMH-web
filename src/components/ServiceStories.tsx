@@ -1,9 +1,6 @@
-"use client";
-
-import { ArrowDown, ArrowRight } from "@phosphor-icons/react";
+import { ArrowDown, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import type { Locale } from "@/content/site";
 import { publicPath } from "@/lib/site-path";
 
@@ -67,67 +64,6 @@ export function ServiceStories({
   prefix: string;
   viewCase: string;
 }) {
-  const storyRefs = useRef<Array<HTMLElement | null>>([]);
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    if (reducedMotion.matches) {
-      storyRefs.current.forEach((story) => {
-        story?.style.setProperty("--service-story-scale", "1");
-        story?.style.setProperty("--service-story-radius", "0px");
-        story?.style.setProperty("--service-story-next-opacity", "1");
-      });
-      return;
-    }
-
-    let frame = 0;
-
-    const update = () => {
-      frame = 0;
-      const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
-      const headerHeight = document.querySelector<HTMLElement>(".site-header")?.getBoundingClientRect().height ?? 76;
-      const responsiveWidth = Math.min(Math.max(viewportWidth, 320), 980);
-      const startScale = 0.78 - (((responsiveWidth - 320) / 660) * 0.2);
-
-      storyRefs.current.forEach((story) => {
-        if (!story) return;
-
-        const rect = story.getBoundingClientRect();
-        const stickyStage = story.querySelector<HTMLElement>(".service-story-link");
-        const stageHeight = stickyStage?.getBoundingClientRect().height ?? window.innerHeight - headerHeight;
-        const stickyTop = stickyStage ? Number.parseFloat(window.getComputedStyle(stickyStage).top) : headerHeight;
-        const travel = Math.max(story.offsetHeight - stageHeight, 1);
-        const progress = Math.min(Math.max(((Number.isFinite(stickyTop) ? stickyTop : headerHeight) - rect.top) / travel, 0), 1);
-        const scale = startScale + ((1 - startScale) * progress);
-        const nextOpacity = Math.min(Math.max((1 - progress) * 6, 0), 1);
-
-        story.style.setProperty("--service-story-scale", scale.toFixed(4));
-        story.style.setProperty("--service-story-radius", `${(6 * (1 - progress)).toFixed(2)}px`);
-        story.style.setProperty("--service-story-next-opacity", nextOpacity.toFixed(3));
-      });
-    };
-
-    const scheduleUpdate = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-    window.visualViewport?.addEventListener("resize", scheduleUpdate);
-    window.visualViewport?.addEventListener("scroll", scheduleUpdate);
-
-    return () => {
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-      window.visualViewport?.removeEventListener("resize", scheduleUpdate);
-      window.visualViewport?.removeEventListener("scroll", scheduleUpdate);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
   return (
     <div className="service-story-list">
       {services.map((service, index) => {
@@ -145,68 +81,65 @@ export function ServiceStories({
 
         return (
           <article
-          className={`service-story${media ? ` service-story--${media.variant} service-story--${media.theme}` : ""}`}
-          key={service.title}
-          ref={(node) => {
-            storyRefs.current[index] = node;
-          }}
-        >
-          <Link
-            className="service-story-link"
-            href={`${prefix}/projects/${service.slug}`}
-            aria-label={`${viewCase}: ${service.title}`}
+            className={`service-story${media ? ` service-story--${media.variant} service-story--${media.theme}` : ""}`}
+            key={service.title}
           >
-            <div
-              className="service-story-visual"
-              role={media ? undefined : "img"}
-              aria-label={media ? undefined : locale === "zh" ? `${service.title} 圖片佔位` : `Image placeholder for ${service.title}`}
+            <Link
+              className="service-story-link"
+              href={`${prefix}/projects/${service.slug}`}
+              aria-label={`${viewCase}: ${service.title}`}
             >
-              {media?.variant === "artwork" ? (
-                <>
-                  <Image
-                    className="service-story-image"
-                    src={publicPath(media.src)}
-                    alt={media.alt[locale]}
-                    fill
-                    sizes="100vw"
-                  />
-                  <span className="service-story-artwork-action">
-                    {viewCase}<ArrowRight size={20} aria-hidden="true" />
-                  </span>
-                </>
-              ) : media?.variant === "logo" ? (
-                <div className="service-story-logo-content">
-                  <div className="service-story-brand-stage">
-                    <div className="service-story-logo-frame">
-                      <Image
-                        className="service-story-logo-image"
-                        src={publicPath(media.src)}
-                        alt={media.alt[locale]}
-                        fill
-                        sizes="(max-width: 680px) 82vw, 560px"
-                      />
-                    </div>
-                    {media.theme === "dolphinode" ? (
-                      <div className="service-story-product-logos" aria-label={locale === "zh" ? "Dolphinode 產品品牌" : "Dolphinode product brands"}>
-                        {dolphinodeProductLogos.map((logo) => (
-                          <span className="service-story-product-logo" key={logo.name}>
-                            <Image src={publicPath(logo.src)} alt={logo.name} width={512} height={512} sizes="(max-width: 680px) 64px, 96px" />
-                          </span>
-                        ))}
+              <div
+                className="service-story-visual"
+                role={media ? undefined : "img"}
+                aria-label={media ? undefined : locale === "zh" ? `${service.title} 圖片佔位` : `Image placeholder for ${service.title}`}
+              >
+                {media?.variant === "artwork" ? (
+                  <>
+                    <Image
+                      className="service-story-image"
+                      src={publicPath(media.src)}
+                      alt={media.alt[locale]}
+                      fill
+                      sizes="100vw"
+                    />
+                    <span className="service-story-artwork-action">
+                      {viewCase}<ArrowRight size={20} aria-hidden="true" />
+                    </span>
+                  </>
+                ) : media?.variant === "logo" ? (
+                  <div className="service-story-logo-content">
+                    <div className="service-story-brand-stage">
+                      <div className="service-story-logo-frame">
+                        <Image
+                          className="service-story-logo-image"
+                          src={publicPath(media.src)}
+                          alt={media.alt[locale]}
+                          fill
+                          sizes="(max-width: 680px) 82vw, 560px"
+                        />
                       </div>
-                    ) : null}
+                      {media.theme === "dolphinode" ? (
+                        <div className="service-story-product-logos" aria-label={locale === "zh" ? "Dolphinode 產品品牌" : "Dolphinode product brands"}>
+                          {dolphinodeProductLogos.map((logo) => (
+                            <span className="service-story-product-logo" key={logo.name}>
+                              <Image src={publicPath(logo.src)} alt={logo.name} width={512} height={512} sizes="(max-width: 680px) 64px, 96px" />
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                    {storyCopy}
                   </div>
-                  {storyCopy}
-                </div>
-              ) : (
-                <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-              )}
-            </div>
-            {media?.variant === "artwork" || media?.variant === "logo" ? null : storyCopy}
-            {index < services.length - 1 ? (
-              <span className="service-story-next" aria-hidden="true"><ArrowDown size={20} /></span>
-            ) : null}
-          </Link>
+                ) : (
+                  <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                )}
+              </div>
+              {media?.variant === "artwork" || media?.variant === "logo" ? null : storyCopy}
+              {index < services.length - 1 ? (
+                <span className="service-story-next" aria-hidden="true"><ArrowDown size={20} /></span>
+              ) : null}
+            </Link>
           </article>
         );
       })}
