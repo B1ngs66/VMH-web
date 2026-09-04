@@ -884,7 +884,7 @@ main[lang="en"] .hero-copy h1 {
   top: 39%;
   left: 50%;
   display: grid;
-  grid-template-columns: repeat(4, clamp(68px, 7vw, 96px));
+  grid-template-columns: repeat(3, clamp(68px, 7vw, 96px));
   gap: clamp(10px, 1.4vw, 18px);
   transform: translateX(-50%);
 }
@@ -2815,7 +2815,7 @@ a.dolphinode-app-card:focus-visible {
 
   .service-story-product-logos {
     top: 39%;
-    grid-template-columns: repeat(4, clamp(54px, 16vw, 68px));
+    grid-template-columns: repeat(3, clamp(54px, 16vw, 68px));
     gap: 8px;
   }
 
