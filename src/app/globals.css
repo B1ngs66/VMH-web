@@ -2572,17 +2572,19 @@ a.dolphinode-app-card:focus-visible {
   flex-direction: column;
   align-items: flex-start;
   justify-self: start;
-  gap: 6px;
+  gap: 8px;
   margin: 0;
 }
 
 .project-app-store-link {
-  width: 155px;
-  height: 60px;
-  flex: 0 0 60px;
+  position: relative;
+  width: 120px;
+  height: 44px;
+  flex: 0 0 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   border: 0;
   background: transparent;
   transition: opacity 180ms ease, transform 180ms ease;
@@ -2590,18 +2592,20 @@ a.dolphinode-app-card:focus-visible {
 
 .project-app-store-link img {
   display: block;
-  width: auto;
-  object-fit: contain;
+  max-width: none;
 }
 
 .project-app-store-link--apple img {
   width: 120px;
-  height: auto;
+  height: 40px;
 }
 
 .project-app-store-link--google img {
-  width: 155px;
-  height: auto;
+  position: absolute;
+  top: -7.76px;
+  left: -8.72px;
+  width: 137.45px;
+  height: 59.52px;
 }
 
 .project-app-store-link:hover {
