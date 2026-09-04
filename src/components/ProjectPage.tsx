@@ -7,6 +7,7 @@ import { publicPath } from "@/lib/site-path";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { DouyinVideo } from "./DouyinVideo";
+import { ProjectSections } from "./ProjectSections";
 
 const dolphinodeApps = [
   {
@@ -197,16 +198,7 @@ export function ProjectPage({ locale, project }: { locale: Locale; project: Proj
 
         <article className="project-content">
           {!isFootballProject ? <p className="project-lead">{project.lead}</p> : null}
-          <div className="project-sections">
-            {project.sections.map((section) => (
-              <section key={section.title}>
-                <h2>{section.title}</h2>
-                <div>
-                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                </div>
-              </section>
-            ))}
-          </div>
+          <ProjectSections sections={project.sections} />
 
           {isDolphinodeProject ? (
             <section className="project-related-media" aria-labelledby="project-related-media-title">

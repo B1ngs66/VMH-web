@@ -70,22 +70,35 @@ export function ServiceStories({
   const storyRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (reducedMotion.matches) {
+      storyRefs.current.forEach((story) => {
+        story?.style.setProperty("--service-story-scale", "1");
+        story?.style.setProperty("--service-story-radius", "0px");
+        story?.style.setProperty("--service-story-next-opacity", "1");
+      });
+      return;
+    }
+
     let frame = 0;
 
     const update = () => {
       frame = 0;
-      const viewportHeight = window.innerHeight;
-      const mobile = window.innerWidth <= 680;
-      const headerHeight = mobile ? 68 : 76;
-      const startScale = mobile ? 0.86 : 0.58;
+      const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+      const headerHeight = document.querySelector<HTMLElement>(".site-header")?.getBoundingClientRect().height ?? 76;
+      const responsiveWidth = Math.min(Math.max(viewportWidth, 320), 980);
+      const startScale = 0.78 - (((responsiveWidth - 320) / 660) * 0.2);
 
       storyRefs.current.forEach((story) => {
         if (!story) return;
 
         const rect = story.getBoundingClientRect();
-        const stageHeight = viewportHeight - headerHeight;
+        const stickyStage = story.querySelector<HTMLElement>(".service-story-link");
+        const stageHeight = stickyStage?.getBoundingClientRect().height ?? window.innerHeight - headerHeight;
+        const stickyTop = stickyStage ? Number.parseFloat(window.getComputedStyle(stickyStage).top) : headerHeight;
         const travel = Math.max(story.offsetHeight - stageHeight, 1);
-        const progress = Math.min(Math.max((headerHeight - rect.top) / travel, 0), 1);
+        const progress = Math.min(Math.max(((Number.isFinite(stickyTop) ? stickyTop : headerHeight) - rect.top) / travel, 0), 1);
         const scale = startScale + ((1 - startScale) * progress);
         const nextOpacity = Math.min(Math.max((1 - progress) * 6, 0), 1);
 
@@ -103,10 +116,14 @@ export function ServiceStories({
     update();
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
+    window.visualViewport?.addEventListener("resize", scheduleUpdate);
+    window.visualViewport?.addEventListener("scroll", scheduleUpdate);
 
     return () => {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
+      window.visualViewport?.removeEventListener("resize", scheduleUpdate);
+      window.visualViewport?.removeEventListener("scroll", scheduleUpdate);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
@@ -115,6 +132,16 @@ export function ServiceStories({
     <div className="service-story-list">
       {services.map((service, index) => {
         const media = storyMedia[service.slug];
+        const storyCopy = (
+          <div className="service-story-copy">
+            <span className="service-story-kicker">
+              {locale === "zh" ? `重點項目 ${String(index + 1).padStart(2, "0")}` : `Featured project ${String(index + 1).padStart(2, "0")}`}
+            </span>
+            <h3>{service.title}</h3>
+            <p>{service.text}</p>
+            <span className="service-story-action">{viewCase}<ArrowRight size={20} aria-hidden="true" /></span>
+          </div>
+        );
 
         return (
           <article
@@ -148,40 +175,34 @@ export function ServiceStories({
                   </span>
                 </>
               ) : media?.variant === "logo" ? (
-                <>
-                  <div className="service-story-logo-frame">
-                    <Image
-                      className="service-story-logo-image"
-                      src={publicPath(media.src)}
-                      alt={media.alt[locale]}
-                      fill
-                      sizes="(max-width: 680px) 82vw, 560px"
-                    />
-                  </div>
-                  {media.theme === "dolphinode" ? (
-                    <div className="service-story-product-logos" aria-label={locale === "zh" ? "Dolphinode 產品品牌" : "Dolphinode product brands"}>
-                      {dolphinodeProductLogos.map((logo) => (
-                        <span className="service-story-product-logo" key={logo.name}>
-                          <Image src={publicPath(logo.src)} alt={logo.name} width={512} height={512} sizes="(max-width: 680px) 64px, 96px" />
-                        </span>
-                      ))}
+                <div className="service-story-logo-content">
+                  <div className="service-story-brand-stage">
+                    <div className="service-story-logo-frame">
+                      <Image
+                        className="service-story-logo-image"
+                        src={publicPath(media.src)}
+                        alt={media.alt[locale]}
+                        fill
+                        sizes="(max-width: 680px) 82vw, 560px"
+                      />
                     </div>
-                  ) : null}
-                </>
+                    {media.theme === "dolphinode" ? (
+                      <div className="service-story-product-logos" aria-label={locale === "zh" ? "Dolphinode 產品品牌" : "Dolphinode product brands"}>
+                        {dolphinodeProductLogos.map((logo) => (
+                          <span className="service-story-product-logo" key={logo.name}>
+                            <Image src={publicPath(logo.src)} alt={logo.name} width={512} height={512} sizes="(max-width: 680px) 64px, 96px" />
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                  {storyCopy}
+                </div>
               ) : (
                 <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               )}
             </div>
-            {media?.variant === "artwork" ? null : (
-              <div className="service-story-copy">
-                <span className="service-story-kicker">
-                  {locale === "zh" ? `重點項目 ${String(index + 1).padStart(2, "0")}` : `Featured project ${String(index + 1).padStart(2, "0")}`}
-                </span>
-                <h3>{service.title}</h3>
-                <p>{service.text}</p>
-                <span className="service-story-action">{viewCase}<ArrowRight size={20} aria-hidden="true" /></span>
-              </div>
-            )}
+            {media?.variant === "artwork" || media?.variant === "logo" ? null : storyCopy}
             {index < services.length - 1 ? (
               <span className="service-story-next" aria-hidden="true"><ArrowDown size={20} /></span>
             ) : null}
