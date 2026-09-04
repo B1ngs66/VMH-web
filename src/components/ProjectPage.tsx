@@ -21,6 +21,7 @@ const dolphinodeApps = [
     name: "NodeVault",
     logo: "/picture/dolphinode/nodevault.jpg",
     description: { zh: "錢包與資產入口", en: "Wallet and asset access" },
+    featured: true,
   },
   {
     name: "WhimLand",
