@@ -2559,21 +2559,25 @@ a.dolphinode-app-card:focus-visible {
 
 .project-app-store-links {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: flex-start;
-  gap: 8px;
+  gap: 10px;
   margin-top: auto;
 }
 
 .project-app-store-link {
-  min-width: 44px;
-  min-height: 44px;
+  width: 168px;
+  height: 60px;
+  flex: 0 0 168px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 0;
-  border-radius: 9px;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  overflow: hidden;
+  border: 1px solid #d8e0ea;
+  border-radius: 12px;
+  background: #f7f9fc;
+  box-shadow: 0 4px 14px rgb(22 49 82 / 6%);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .project-app-store-link img {
@@ -2588,11 +2592,11 @@ a.dolphinode-app-card:focus-visible {
 
 .project-app-store-link--google img {
   height: 60px;
-  margin: -10px -14px;
 }
 
 .project-app-store-link:hover {
   transform: translateY(-2px);
+  border-color: rgb(42 92 170 / 42%);
   box-shadow: 0 10px 24px rgb(32 68 116 / 12%);
 }
 
