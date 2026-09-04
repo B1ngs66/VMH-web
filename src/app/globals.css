@@ -2578,9 +2578,9 @@ a.dolphinode-app-card:focus-visible {
 
 .project-app-store-link {
   position: relative;
-  width: 120px;
-  height: 44px;
-  flex: 0 0 44px;
+  width: 144px;
+  height: 52px;
+  flex: 0 0 52px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2596,16 +2596,16 @@ a.dolphinode-app-card:focus-visible {
 }
 
 .project-app-store-link--apple img {
-  width: 120px;
-  height: 40px;
+  width: 144px;
+  height: 48px;
 }
 
 .project-app-store-link--google img {
   position: absolute;
-  top: -7.76px;
-  left: -8.72px;
-  width: 137.45px;
-  height: 59.52px;
+  top: -9.71px;
+  left: -10.47px;
+  width: 164.94px;
+  height: 71.43px;
 }
 
 .project-app-store-link:hover {
@@ -2713,6 +2713,17 @@ a.dolphinode-app-card:focus-visible {
   .latest-filing p {
     overflow: visible;
     white-space: normal;
+  }
+}
+
+@media (max-width: 1080px) {
+  .project-app-download-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-app-download-card {
+    width: min(100%, 440px);
+    justify-self: center;
   }
 }
 
@@ -3311,6 +3322,38 @@ a.dolphinode-app-card:focus-visible {
 @media (max-width: 480px) {
   .service-story {
     --service-story-start-scale: 0.76;
+  }
+}
+
+@media (max-width: 375px) {
+  .project-app-download-card {
+    grid-template-columns: 56px minmax(0, 1fr);
+    grid-template-areas:
+      "app-logo app-downloads"
+      "app-name app-name";
+    column-gap: 8px;
+  }
+
+  .project-app-download-card > img {
+    width: 56px;
+  }
+
+  .project-app-store-link {
+    width: 132px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+
+  .project-app-store-link--apple img {
+    width: 132px;
+    height: 44px;
+  }
+
+  .project-app-store-link--google img {
+    top: -8.74px;
+    left: -9.6px;
+    width: 151.21px;
+    height: 65.48px;
   }
 }
 
