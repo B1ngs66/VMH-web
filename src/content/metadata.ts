@@ -26,11 +26,8 @@ const socialImage = { url: publicPath("/picture/frameA_pic.jpg"), width: 1054, h
 export const siteViewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FBFCFE" },
-    { media: "(prefers-color-scheme: dark)", color: "#101B2D" },
-  ],
+  colorScheme: "light",
+  themeColor: "#FBFCFE",
 };
 
 export function createRootMetadata(locale: Locale): Metadata {

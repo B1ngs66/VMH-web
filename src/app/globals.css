@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --vmh-blue: #2a5caa;
   --vmh-blue-strong: #214b8d;
   --ink: #101b2d;
@@ -18,28 +19,6 @@
   --page: min(1400px, calc(100vw - 64px));
   --font-body: var(--font-noto), "PingFang TC", "Microsoft JhengHei", sans-serif;
   --font-display: var(--font-outfit), var(--font-noto), sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --vmh-blue: #78a7ee;
-    --vmh-blue-strong: #96bbf2;
-    --ink: #edf3fb;
-    --steel: #a9b6c6;
-    --cloud: #152235;
-    --paper: #0d1726;
-    --surface: #111d2e;
-    --rule: #2b3b50;
-    --header: rgb(13 23 38 / 92%);
-    --soft-blue: #172c49;
-    --focus: #96bbf2;
-    --action-bg: #96bbf2;
-    --action-text: #0d1726;
-  }
-
-  .brand-logo {
-    filter: brightness(0) invert(1);
-  }
 }
 
 * {
@@ -2424,14 +2403,6 @@ a.dolphinode-app-card:focus-visible {
 
   .project-section:hover > div {
     transform: translateX(4px);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .project-section {
-    --project-section-highlight: linear-gradient(105deg, rgb(35 78 128 / 64%), rgb(20 47 80 / 50%) 58%, rgb(13 23 38 / 8%));
-    --project-section-highlight-border: rgb(120 167 238 / 28%);
-    --project-section-highlight-shadow: 0 18px 48px rgb(0 0 0 / 24%);
   }
 }
 
