@@ -2533,8 +2533,14 @@ a.dolphinode-app-card:focus-visible {
 
 .project-app-download-card {
   min-width: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(92px, 104px) minmax(0, 1fr);
+  grid-template-areas:
+    "app-logo app-downloads"
+    "app-name app-downloads";
+  align-items: center;
+  column-gap: clamp(20px, 2vw, 28px);
+  row-gap: 14px;
   padding: clamp(18px, 2.2vw, 26px);
   border: 1px solid var(--rule);
   border-radius: 18px;
@@ -2542,6 +2548,7 @@ a.dolphinode-app-card:focus-visible {
 }
 
 .project-app-download-card > img {
+  grid-area: app-logo;
   width: clamp(72px, 7vw, 104px);
   height: auto;
   display: block;
@@ -2551,33 +2558,34 @@ a.dolphinode-app-card:focus-visible {
 }
 
 .project-app-download-card h4 {
-  margin: 18px 0 22px;
+  grid-area: app-name;
+  align-self: start;
+  margin: 0;
   font-family: var(--font-display);
   font-size: clamp(18px, 1.8vw, 24px);
   letter-spacing: -0.015em;
 }
 
 .project-app-store-links {
+  grid-area: app-downloads;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
-  margin-top: auto;
+  justify-self: start;
+  gap: 6px;
+  margin: 0;
 }
 
 .project-app-store-link {
-  width: 168px;
+  width: 155px;
   height: 60px;
-  flex: 0 0 168px;
+  flex: 0 0 60px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  border: 1px solid #d8e0ea;
-  border-radius: 12px;
-  background: #f7f9fc;
-  box-shadow: 0 4px 14px rgb(22 49 82 / 6%);
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  border: 0;
+  background: transparent;
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .project-app-store-link img {
@@ -2587,17 +2595,18 @@ a.dolphinode-app-card:focus-visible {
 }
 
 .project-app-store-link--apple img {
-  height: 40px;
+  width: 120px;
+  height: auto;
 }
 
 .project-app-store-link--google img {
-  height: 60px;
+  width: 155px;
+  height: auto;
 }
 
 .project-app-store-link:hover {
+  opacity: 0.82;
   transform: translateY(-2px);
-  border-color: rgb(42 92 170 / 42%);
-  box-shadow: 0 10px 24px rgb(32 68 116 / 12%);
 }
 
 .project-app-store-link:focus-visible {
@@ -3150,19 +3159,21 @@ a.dolphinode-app-card:focus-visible {
   }
 
   .project-app-download-card {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: minmax(72px, 92px) minmax(0, 1fr);
+    grid-template-areas:
+      "app-logo app-downloads"
+      "app-name app-downloads";
     column-gap: 18px;
   }
 
   .project-app-download-card h4 {
-    align-self: center;
+    align-self: start;
     margin: 0;
   }
 
   .project-app-store-links {
-    grid-column: 1 / -1;
-    margin-top: 18px;
+    grid-area: app-downloads;
+    margin: 0;
   }
 
   .project-lead {
