@@ -3581,8 +3581,21 @@ a.dolphinode-app-card:focus-visible {
     animation-iteration-count: 1 !important;
   }
 
+  .service-story {
+    min-height: calc(100vh - var(--service-story-header-height));
+    min-height: calc(100svh - var(--service-story-header-height));
+    padding: 0;
+  }
+
+  .service-story-link {
+    min-height: calc(100vh - var(--service-story-header-height));
+    min-height: calc(100svh - var(--service-story-header-height));
+  }
+
   .service-story-visual {
     animation: none;
+    border-radius: 0;
+    transform: none;
     will-change: auto;
   }
 
