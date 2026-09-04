@@ -2534,12 +2534,12 @@ a.dolphinode-app-card:focus-visible {
 .project-app-download-card {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(92px, 104px) minmax(0, 1fr);
+  grid-template-columns: minmax(104px, 134px) minmax(0, 1fr);
   grid-template-areas:
     "app-logo app-downloads"
     "app-name app-downloads";
   align-items: center;
-  column-gap: clamp(20px, 2vw, 28px);
+  column-gap: clamp(16px, 1.5vw, 18px);
   row-gap: 14px;
   padding: clamp(18px, 2.2vw, 26px);
   border: 1px solid var(--rule);
