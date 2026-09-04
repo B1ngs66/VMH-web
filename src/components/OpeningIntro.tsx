@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Play } from "@phosphor-icons/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Locale } from "@/content/site";
 import { publicPath } from "@/lib/site-path";
 
@@ -23,23 +24,70 @@ const introCopy = {
 
 export function OpeningIntro({ locale }: { locale: Locale }) {
   const copy = introCopy[locale];
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [phase, setPhase] = useState<IntroPhase>("opening");
+  const [needsPlaybackGesture, setNeedsPlaybackGesture] = useState(false);
   const activeMessage = phase === "positioning"
     ? copy.positioning
     : phase === "connection"
       ? copy.connection
       : null;
 
+  const playVideo = useCallback(async () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.defaultPlaybackRate = 0.7;
+    video.playbackRate = 0.7;
+
+    try {
+      await video.play();
+      setNeedsPlaybackGesture(false);
+    } catch {
+      setNeedsPlaybackGesture(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const resumePlayback = () => {
+      if (document.visibilityState === "visible") {
+        void playVideo();
+      }
+    };
+
+    document.addEventListener("WeixinJSBridgeReady", playVideo);
+    document.addEventListener("visibilitychange", resumePlayback);
+
+    return () => {
+      document.removeEventListener("WeixinJSBridgeReady", playVideo);
+      document.removeEventListener("visibilitychange", resumePlayback);
+    };
+  }, [playVideo]);
+
   return (
     <section className={`opening-intro opening-intro--${phase}`} aria-label={copy.label}>
       <video
+        ref={videoRef}
         className="opening-intro-video"
         autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="auto"
+        poster={publicPath("/picture/vmh-opening-poster.jpg")}
         aria-hidden="true"
+        {...{
+          "webkit-playsinline": "true",
+          "x5-playsinline": "true",
+          "x5-video-player-type": "h5-page",
+          "x5-video-player-fullscreen": "false",
+          "x-webkit-airplay": "allow",
+        }}
+        onCanPlay={() => void playVideo()}
+        onError={() => setNeedsPlaybackGesture(true)}
+        onPlaying={() => setNeedsPlaybackGesture(false)}
         onLoadedMetadata={(event) => {
           event.currentTarget.playbackRate = 0.7;
         }}
@@ -55,11 +103,22 @@ export function OpeningIntro({ locale }: { locale: Locale }) {
           setPhase((current) => current === nextPhase ? current : nextPhase);
         }}
       >
+        <source
+          src={publicPath("/video/vmh-opening-mobile.mp4")}
+          type="video/mp4"
+          media="(max-width: 680px)"
+        />
         <source src={publicPath("/video/vmh-opening.mp4")} type="video/mp4" />
         {copy.fallback}
       </video>
 
       <div className="opening-intro-scrim" aria-hidden="true" />
+      {needsPlaybackGesture ? (
+        <button className="opening-intro-play" type="button" onClick={() => void playVideo()}>
+          <Play size={22} weight="fill" aria-hidden="true" />
+          <span>{locale === "zh" ? "播放影片" : "Play video"}</span>
+        </button>
+      ) : null}
       <div className="opening-intro-copy" aria-live="polite">
         {activeMessage ? (
           <div className={`opening-intro-message opening-intro-message--${phase}`} key={phase}>
