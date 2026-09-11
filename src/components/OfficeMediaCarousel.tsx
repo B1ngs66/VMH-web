@@ -8,24 +8,10 @@ import { publicPath } from "@/lib/site-path";
 
 const slides = [
   {
-    src: "/picture/laliga-club-willian-mei-speech.jpg",
-    alt: {
-      zh: "梅惟一於西甲俱樂部活動上發表演講",
-      en: "Willian Mei speaking at a LaLiga Club event",
-    },
-  },
-  {
     src: "/picture/frameA_pic_inside.jpg",
     alt: {
       zh: "天機控股辦公空間品牌展示",
       en: "VM Holding branding displayed in its office",
-    },
-  },
-  {
-    src: "/picture/laliga-digital-alliance-signing.jpg",
-    alt: {
-      zh: "西甲俱樂部以球迷為中心的數字聯盟簽約儀式",
-      en: "Signing ceremony for a fan-centred digital alliance with a LaLiga club",
     },
   },
   {
